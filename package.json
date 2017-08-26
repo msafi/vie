@@ -7,9 +7,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc --watch",
     "prepublish": "tsc && npm version minor",
-    "postpublish": "git push"
+    "postpublish": "git push --tags"
   },
-  "bin": "bin/vie.js",
+  "bin": {
+    "vie": "node bin/vie.js"
+  },
+  "engines": {
+    "node" : ">=8.0.0" 
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/msafi/vie.git"
