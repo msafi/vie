@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc --watch",
-    "publish": "tsc && npm version patch && npm publish && git push"
+    "prepublish": "tsc && npm version minor",
+    "postpublish": "git push"
   },
   "bin": "bin/vie.js",
   "repository": {
