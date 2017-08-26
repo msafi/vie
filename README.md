@@ -4,11 +4,7 @@
 
 See [this video demo](https://giphy.com/gifs/3oKGzt8BExxh3EPxpC/fullscreen).
 
-### Notes 
-
-The default text editor that vie looks for VS Code. If you use a different editor, see the [configurations](#configurations) section below.
-
-vie requires that you have Node 8+ installed, otherwise it won't work.
+**Note**: the default text editor that vie looks for VS Code. If you use a different editor, see the [configurations](#configurations) section below.
 
 ## Installation
 
