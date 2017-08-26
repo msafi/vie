@@ -20,7 +20,7 @@ const error = chalk.bold.underline.red
 const pullRequestUrlRegex = /\/pull\/\d+/g
 const pathnameParsingRegex = /^\/(.+?)\/(.+?)(?:\/|$)(?:pull\/(\d+))?/
 const cwd = process.cwd()
-const {VIC_EDITOR_COMMAND = 'code --wait'} = process.env
+const {VIE_EDITOR = 'code'} = process.env
 
 // Application spinner
 const applicationSpinner = ora()
@@ -28,10 +28,8 @@ const applicationSpinner = ora()
 // Setup arguments through the commander.js CLI framework
 program
   .usage('[options] <GitHub repo or pull-request URL>')
-  .option(
-    '-d, --deep [boolean]', 
-    'Specify whether to clone repos deep or shallow. By default PRs are ' +
-    'cloned with full depth and repos are cloned with depth level of 1.'
+  .option('-d, --deep', 'By default, vie clones repos with depth of 1. ' +
+    'Pass this flag to clone with full depth. PRs are always cloned with full depth.'
   )
   .parse(process.argv)
 
@@ -50,7 +48,7 @@ async function main() {
     const [src] = program.args
     const {pathname} = new URL(src)
     const isPr = checkIsPr(pathname)
-    const {deep: isDeep = isPr ? true : false} = program
+    const {deep: isDeep = false} = program
     const [,
       srcUser = '', 
       srcRepoName = '',
@@ -58,7 +56,7 @@ async function main() {
     ] = pathname.match(pathnameParsingRegex) || []
     const srcRepoFullName = `${srcUser}/${srcRepoName}`
     const userFriendlyName = (isPr) ? `${srcRepoFullName}#${prNumber}` : srcRepoFullName
-    const dirName = path.join(os.tmpdir(), `ric-${srcRepoName}-${Date.now()}`)
+    const dirName = path.join(os.tmpdir(), `vie-${srcRepoName}-${Date.now()}`)
   
     fs.mkdirSync(dirName)
     applicationSpinner.succeed(`Files will temporarily reside in ${name(dirName)}`)
@@ -82,21 +80,18 @@ async function main() {
     shelljs.cd(dirName)
     
     applicationSpinner.start(`Cloning ${name(`${repoUrl}`)} into temporary directory`)
-    await exec(`GIT_TERMINAL_PROMPT=0 git clone ${(isDeep) ? '' : '--depth 1 '}${repoUrl} .`)
+    await exec(`GIT_TERMINAL_PROMPT=0 git clone ${(isDeep || isPr) ? '' : '--depth 1 '}${repoUrl} .`)
   
-    applicationSpinner.start(`Checking out ${name(branch)}`)
-    await exec(`git checkout ${branch}`)
+    if (isPr) {
+      applicationSpinner.start(`Checking out ${name(branch)}`)
+      await exec(`git checkout ${branch}`)
+    }
   
     shelljs.cd(cwd)
     
-    applicationSpinner.stop()
-    
-    const reviewingRepoSpinner = ora({
-      text: `Reviewing ${name(userFriendlyName)} in editor`, 
-      spinner: {frames: ['📖 ']}
-    }).start()
-    await exec(`${VIC_EDITOR_COMMAND} ${dirName}`)
-    reviewingRepoSpinner.succeed(`Done reviewing ${name(userFriendlyName)}`)
+    applicationSpinner.start(`Opening ${name(VIE_EDITOR)}...`)
+    await exec(`${VIE_EDITOR} ${dirName}`)
+    applicationSpinner.succeed(`${name(userFriendlyName)} opened with ${name(VIE_EDITOR)}`)
   } catch(err) {
     console.error(error('\n\nAn error occurred:\n'))
     console.log(err.stack ? err.stack : err)
