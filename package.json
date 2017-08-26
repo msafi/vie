@@ -1,6 +1,6 @@
 {
   "name": "viewineditor",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Quickly open GitHub repos and pull-requests in your text editor",
   "main": "bin/vie.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "vie": "node bin/vie.js"
   },
   "engines": {
-    "node" : ">=8.0.0" 
+    "node": ">=8.0.0"
   },
   "repository": {
     "type": "git",
