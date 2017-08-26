@@ -1,8 +1,10 @@
 # vie
 
-`vie`, for **v**iew **i**n **e**ditor, is a command line tool that lets you quickly open any GitHub repository or pull-request in your text editor. vie downloads the repo to a temporary directory that gets deleted automatically by your operating system when you're done.
+`vie`, for **v**iew **i**n **e**ditor, is a command line tool that lets you quickly open any GitHub repository or pull-request in your text editor. vie downloads the repo to a temporary directory that's automatically cleaned up by your operating system.
 
-**Note**: the default text editor is VS Code. If you use a different editor, see the [configurations](#configurations) section below.
+See [this video demo](https://giphy.com/gifs/3oKGzt8BExxh3EPxpC/fullscreen).
+
+**Note**: the default text editor that vie looks for VS Code. If you use a different editor, see the [configurations](#configurations) section below.
 
 ## Installation
 
@@ -32,7 +34,7 @@ vie will clone the git repo from which the pull-request was sent and it will swi
 
 ### `-d`, `--deep`
 
-By default, vie clones repos with `--depth 1` for efficiency. If you need to clone the repo with its full history pass `--deep` or `-d`.
+By default, vie clones repos with `--depth 1` for efficiency. If you need to clone the repo with its full history, pass `--deep` or `-d`.
 
 For example
 
@@ -48,7 +50,7 @@ To configure vie, set the following environment variables in your shell initiali
 
 ### `VIE_EDITOR`
 
-You can set the `VIE_EDITOR` environment variable to the shell command of the text editor of your choice. 
+You can set the `VIE_EDITOR` environment variable to the shell command of the text editor of your choice. This tells vie which command to use to open the cloned repo.
 
 Examples
 
@@ -62,4 +64,4 @@ export VIE_EDITOR='open -a IntelliJ\ IDEA' # for IntelliJ IDEA
 
 #### When will the downloaded files be deleted?
 
-vie clones files to the temp directory of your operating system. Mac, Linux, and Windows handle temp directories differently but they eventually get deleted. view will print out the location of the temp directory it is using to clone the repo.
+vie clones files to the temp directory of your operating system. Mac, Linux, and Windows handle temp directories differently but they eventually get deleted. vie will print out the location of the temp directory where it is cloning the repo.
