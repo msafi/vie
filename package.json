@@ -1,6 +1,6 @@
 {
   "name": "viewineditor",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Quickly open GitHub repos and pull-requests in your text editor",
   "main": "bin/vie.js",
   "scripts": {
