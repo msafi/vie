@@ -49,8 +49,8 @@ var error = chalk.bold.underline.red;
 var pullRequestUrlRegex = /\/pull\/\d+/g;
 var pathnameParsingRegex = /^\/(.+?)\/(.+?)(?:\/|$)(?:pull\/(\d+))?/;
 var cwd = process.cwd();
-var _process$env$VIE_EDIT = process.env.VIE_EDITOR,
-    VIE_EDITOR = _process$env$VIE_EDIT === undefined ? 'code' : _process$env$VIE_EDIT;
+var _process$env$EDITOR = process.env.EDITOR,
+    EDITOR = _process$env$EDITOR === undefined ? 'code' : _process$env$EDITOR;
 // Application spinner
 
 var applicationSpinner = ora();
@@ -126,12 +126,12 @@ function main() {
 
                     case 33:
                         shelljs.cd(cwd);
-                        applicationSpinner.start(`Opening ${name(VIE_EDITOR)}...`);
+                        applicationSpinner.start(`Opening ${name(EDITOR)}...`);
                         _context.next = 37;
-                        return exec(`${VIE_EDITOR} ${dirName}`);
+                        return exec(`${EDITOR} ${dirName}`);
 
                     case 37:
-                        applicationSpinner.succeed(`${name(userFriendlyName)} opened with ${name(VIE_EDITOR)}`);
+                        applicationSpinner.succeed(`${name(userFriendlyName)} opened with ${name(EDITOR)}`);
                         _context.next = 45;
                         break;
 
@@ -140,7 +140,7 @@ function main() {
                         _context.t0 = _context["catch"](0);
 
                         console.error(error('\n\nAn error occurred:\n'));
-                        console.log(_context.t0.stack ? _context.t0.stack : _context.t0);
+                        console.error(_context.t0.stack ? _context.t0.stack : _context.t0);
                         shelljs.exit(1);
 
                     case 45:
@@ -157,7 +157,6 @@ function exec(str) {
             if (code === 0) {
                 resolve();
             } else {
-                console.log(errorMsg);
                 reject(errorMsg);
             }
         });
