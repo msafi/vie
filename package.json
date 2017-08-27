@@ -8,8 +8,7 @@
     "build": "tsc && babel bin -d bin",
     "dev": "tsc --watch",
     "version": "npm run build && git add -A bin",
-    "postversion": "git push && git push --tags",
-    "prepublishOnly": "npm version minor"
+    "postversion": "git push && git push --tags && npm publish"
   },
   "bin": {
     "vie": "bin/vie.js"

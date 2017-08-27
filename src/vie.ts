@@ -23,7 +23,7 @@ const error = chalk.bold.underline.red
 const pullRequestUrlRegex = /\/pull\/\d+/g
 const pathnameParsingRegex = /^\/(.+?)\/(.+?)(?:\/|$)(?:pull\/(\d+))?/
 const cwd = process.cwd()
-const {VIE_EDITOR = 'code'} = process.env
+const {EDITOR = 'code'} = process.env
 
 // Application spinner
 const applicationSpinner = ora()
@@ -92,12 +92,12 @@ async function main() {
   
     shelljs.cd(cwd)
     
-    applicationSpinner.start(`Opening ${name(VIE_EDITOR)}...`)
-    await exec(`${VIE_EDITOR} ${dirName}`)
-    applicationSpinner.succeed(`${name(userFriendlyName)} opened with ${name(VIE_EDITOR)}`)
+    applicationSpinner.start(`Opening ${name(EDITOR)}...`)
+    await exec(`${EDITOR} ${dirName}`)
+    applicationSpinner.succeed(`${name(userFriendlyName)} opened with ${name(EDITOR)}`)
   } catch(err) {
     console.error(error('\n\nAn error occurred:\n'))
-    console.log(err.stack ? err.stack : err)
+    console.error(err.stack ? err.stack : err)
     shelljs.exit(1)
   }
 }
@@ -110,7 +110,6 @@ function exec(str: string) {
       if (code === 0) {
         resolve()
       } else {
-        console.log(errorMsg)
         reject(errorMsg)
       }
     }

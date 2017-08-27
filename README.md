@@ -1,10 +1,10 @@
 # vie
 
-`vie`, for **v**iew **i**n **e**ditor, is a command line tool that lets you quickly open any GitHub repository or pull-request in your text editor. vie downloads the repo to a temporary directory that's automatically cleaned up by your operating system.
+`vie`, for **v**iew **i**n **e**ditor, is a command line tool that lets you quickly view any GitHub repository or pull-request in your text editor. vie downloads the repo to a temporary directory that's automatically cleaned up by your operating system when you're done viewing the repo.
 
 See [this video demo](https://giphy.com/gifs/3oKGzt8BExxh3EPxpC/fullscreen).
 
-**Note**: the default text editor that vie looks for VS Code. If you use a different editor, see the [configurations](#configurations) section below.
+**Note**: the default text editor that vie looks for is the one set by your `EDITOR` environment variable. If `EDITOR` is not set, vie looks for VS Code. If you use a different editor, see the [configurations](#configurations) section below.
 
 ## Installation
 
@@ -48,16 +48,16 @@ vie -d https://github.com/twbs/bootstrap
 
 To configure vie, set the following environment variables in your shell initialization file, `.bash_profile`, `.zshrc` etc...
 
-### `VIE_EDITOR`
+### `EDITOR`
 
-You can set the `VIE_EDITOR` environment variable to the shell command of the text editor of your choice. This tells vie which command to use to open the cloned repo.
+You can set the `EDITOR` environment variable to the shell command of the text editor of your choice. This tells vie which command to use to open the cloned repo.
 
 Examples
 
 ```bash
-export VIE_EDITOR=atom # for Atom
-export VIE_EDITOR=subl # for Sublime
-export VIE_EDITOR='open -a IntelliJ\ IDEA' # for IntelliJ IDEA
+export EDITOR=atom # for Atom
+export EDITOR=subl # for Sublime
+export EDITOR='open -a IntelliJ\ IDEA' # for IntelliJ IDEA
 ```
 
 ## FAQ
