@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+require('babel-polyfill')
+
 // Import TypeScript modules
 import * as shelljs from 'shelljs'
 import * as _ from 'lodash'
@@ -6,11 +9,11 @@ import * as chalk from 'chalk'
 import * as ora from 'ora'
 import * as os from 'os'
 import * as path from 'path'
-import {URL} from 'url'
 import * as program from 'commander'
 
 // Import untyped JavaScript files
 const Github = require('github-api')
+const URL = require('url-parse')
 
 // Initialize shell ouput coloring functions
 const name = chalk.italic.blue
